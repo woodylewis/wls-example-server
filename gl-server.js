@@ -45,15 +45,14 @@ router.route('/narrations')
 
 router.route('/new') 
 .post(function(req, res, next) {
-	//res.json({message: req.body.alpha});
 	var title = req.body.alpha;
 	console.log(req.body);
 
 	var narration = new Narration();
-	narration.title = req.body.alpha;
-	narration.url = "/test-piece";
-	narration.date = "09-04-2015";
-	narration.body = "TEST COPY";
+	narration.title = req.body.data.title;
+	narration.url = req.body.data.url;
+	narration.date = req.body.data.date;
+	narration.body = req.body.data.body;
 
 	narration.save(function (err) {
 		if(err) {

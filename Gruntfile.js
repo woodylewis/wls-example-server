@@ -4,17 +4,17 @@ module.exports = function(grunt) {
             options: {
                 jshintrc: '.jshintrc'
             },
-            files: [
-                    'Gruntfile.js','*.js','models/*.js',]
+            files: ['Gruntfile.js','*.js','models/*.js']
         },
         watch: {
-            files: ['<%= jshint.files %>'],
-            tasks: ['jshint']
+            js: {
+                files: ['<%= jshint.files %>'],
+                tasks: ['jshint']
+            }
         }
     });
 
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-watch');
-
-    grunt.registerTask('default', ['jshint']);
+    grunt.registerTask('default', ['watch','jshint']);
 };
