@@ -33,9 +33,24 @@ router.get('/', function(req, res, next){
 
 router.route('/narrations')
 .get(function(req, res) {
-/*
+	Narration.find().
+			  sort('_id').
+			  exec( function (err, narrations) {
+			 	if(err) {
+			 		res.send(err);
+			 	}
+			 	res.json(narrations);
+			 });
+});
+
+router.route('/new') 
+.post(function(req, res, next) {
+	//res.json({message: req.body.alpha});
+	var title = req.body.alpha;
+	console.log(req.body);
+
 	var narration = new Narration();
-	narration.title = "Test";
+	narration.title = req.body.alpha;
 	narration.url = "/test-piece";
 	narration.date = "09-04-2015";
 	narration.body = "TEST COPY";
@@ -46,16 +61,12 @@ router.route('/narrations')
 		}
 		res.json({message: 'Narration Created'});
 	});
-*/
-	Narration.find().
-			  sort('_id').
-			  exec( function (err, narrations) {
-			 	if(err) {
-			 		res.send(err);
-			 	}
-			 	res.json(narrations);
-			 });
-});
+
+}), function(err) {
+	if(err) {
+		res.send(err);
+	}
+};
 
 //----- REGISTER ROUTES ----------
 app.use('/', router);
