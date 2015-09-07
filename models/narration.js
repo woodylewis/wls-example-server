@@ -2,10 +2,10 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var NarrationSchema = new Schema ({
-	title: String,
-	url: String,
+	body: String,
 	date: Date,
-	body: String
+	title: String,
+	url: String
 });
 
 module.exports = mongoose.model('Narration', NarrationSchema);

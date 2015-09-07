@@ -43,16 +43,25 @@ router.route('/narrations')
 			 });
 });
 
+router.route('/narrations/:narration_id')
+.get(function(req, res, next) {
+	Narration.findById(req.params.narration_id, function(err, narration) {
+		if(err) {
+			res.send(err);
+		}
+		res.json(narration);
+	});
+});
+
 router.route('/new') 
 .post(function(req, res, next) {
-	var title = req.body.alpha;
-	console.log(req.body);
+	var data = req.body.data,
+		narration = new Narration();
 
-	var narration = new Narration();
-	narration.title = req.body.data.title;
-	narration.url = req.body.data.url;
-	narration.date = req.body.data.date;
-	narration.body = req.body.data.body;
+	narration.title = data.title;
+	narration.url = data.url;
+	narration.date = data.date;
+	narration.body = data.body;
 
 	narration.save(function (err) {
 		if(err) {
