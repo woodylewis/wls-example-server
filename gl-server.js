@@ -55,6 +55,7 @@ router.route('/narrations/:narration_id')
 
 router.route('/new') 
 .post(function(req, res, next) {
+console.log(req.body.data);
 	var data = req.body.data,
 		narration = new Narration();
 
@@ -62,6 +63,7 @@ router.route('/new')
 	narration.url = data.url;
 	narration.date = data.date;
 	narration.body = data.body;
+	narration.category = data.category;
 
 	narration.save(function (err) {
 		if(err) {
