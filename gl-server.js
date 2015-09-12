@@ -55,7 +55,6 @@ router.route('/narrations/:narration_id')
 
 router.route('/new') 
 .post(function(req, res, next) {
-console.log(req.body.data);
 	var data = req.body.data,
 		narration = new Narration();
 
