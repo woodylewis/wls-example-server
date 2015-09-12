@@ -58,6 +58,7 @@ router.route('/new')
 	var data = req.body.data,
 		narration = new Narration();
 
+console.log('req body', req.body);
 	narration.title = data.title;
 	narration.url = data.url;
 	narration.date = data.date;
