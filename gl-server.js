@@ -3,23 +3,22 @@ var app	= express();
 var bodyParser = require('body-parser');
 var cors = require('cors');
 
+var foo = {
+	one:'alpha',
+	two:'beta'
+}
+
+var ex = require('example')(foo);
+console.log('OUTSIDE - ', ex);
+
 app.use(cors());
-var mongoose = require('mongoose');
-//---- Replace with real credentials -------
-//mongoose.connect('mongodb://<dbuser>:<dbpassword>@mongodb_instance');
-//---- Local dev instance
-//mongoose.connect('mongodb://localhost/api');
-
-//var Stock = require('./app/models/stock');
-
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(bodyParser.json());
-
 var port = 7100;
 
 var router = express.Router();
 
+
 //----- LOG EVENTS ------------
+
 router.use(function(req, res, next) {
 	console.log('An Event');
 	next();
