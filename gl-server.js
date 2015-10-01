@@ -28,6 +28,11 @@ router.use(function(req, res, next) {
 router.get('/', function(req, res, next){
 	res.json({ message: 'TEST RESPONSE'});
 });
+
+router.get('/wls-func', function(req, res, next){
+	ex.wls_func(req, res, next);
+});
+
 //----- REGISTER ROUTES ----------
 app.use('/', router);
 
