@@ -8,7 +8,7 @@ var foo = {
 	two:'beta'
 }
 
-var ex = require('example')(foo);
+var ex = require('wls-example')(foo);
 console.log('OUTSIDE - ', ex);
 
 app.use(cors());
