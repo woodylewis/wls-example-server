@@ -7,9 +7,9 @@ app.use(cors());
 var mongoose = require('mongoose');
 //---- Replace with real credentials -------
 //mongoose.connect('mongodb://<dbuser>:<dbpassword>@mongodb_instance');
-mongoose.connect('mongodb://wls:~griOt99@ds043210.mongolab.com:43210/wls1');
+//mongoose.connect('mongodb://wls:~griOt99@ds043210.mongolab.com:43210/wls1');
 //---- Local dev instance
-//mongoose.connect('mongodb://localhost/api');
+mongoose.connect('mongodb://localhost/narrations');
 
 var Narration = require('./models/narration');
 
