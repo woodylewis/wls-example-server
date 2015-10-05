@@ -87,20 +87,14 @@ router.route('/narration-page/:narration_id')
 	var operator = {};
 	operator['$lt'] = req.params.narration_id;
 	query[field] = operator;
-
 	var realQuery = (req.params.narration_id === 'n') ? firstPass[field] : query;
-	console.log('QUERY = ', query);
-	//Narration.find({ "_id" : { "$lt" : "561179871355594231f6ea9f"}})
 	Narration.find(realQuery)
-			 .limit(20)
+			 .limit(30)
 			 .sort({'_id' : -1})
 			 .exec( function (err, narrations) {
 			 	if(err) {
 			 		res.send(err);
 			 	}
-for(var i = 0; i < narrations.length; i++) {
-console.log(narrations[i]._id);
-}
 			 	res.json(narrations);
 			 });
 
