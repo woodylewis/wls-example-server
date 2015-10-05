@@ -28,7 +28,7 @@ router.use(function(req, res, next) {
 
 //----- TEST ROUTE ------------
 router.get('/', function(req, res, next){
-	res.json({ message: 'TEST RESPONSE'});
+	res.json({ message: 'NEW TEST RESPONSE'});
 });
 
 router.route('/narrations')
@@ -43,6 +43,32 @@ router.route('/narrations')
 			 });
 });
 
+router.route('/edit')
+.get(function(req, res, next) {
+	Narration.find().
+			  sort('_id').
+			  exec( function (err, narrations) {
+			 	if(err) {
+			 		res.send(err);
+			 	}
+			 	for(var i = 0; i < narrations.length; i++) {
+			 		var n = narrations[i];
+			 		console.log('n = ',n);
+			 		n.category = narrations[i].category;
+			 		n.body = narrations[i].body;
+			 		n.date = narrations[i].date;
+			 		n.url = narrations[i].url;
+			 		n.title = 'Title ' + i;
+			 		n.save(function(err) {
+			 			if(err)
+			 				res.send(err);
+			 			//res.json({message: 'edited'});
+			 		});
+			 	}
+			 		res.json('DONE');
+			 });
+});
+
 router.route('/narrations/:narration_id')
 .get(function(req, res, next) {
 	Narration.findById(req.params.narration_id, function(err, narration) {
@@ -51,6 +77,33 @@ router.route('/narrations/:narration_id')
 		}
 		res.json(narration);
 	});
+});
+
+router.route('/narration-page/:narration_id')
+.get(function(req, res, next) {
+	var query = {};
+	var field = '_id';
+	var firstPass = {};
+	var operator = {};
+	operator['$lt'] = req.params.narration_id;
+	query[field] = operator;
+
+	var realQuery = (req.params.narration_id === 'n') ? firstPass[field] : query;
+	console.log('QUERY = ', query);
+	//Narration.find({ "_id" : { "$lt" : "561179871355594231f6ea9f"}})
+	Narration.find(realQuery)
+			 .limit(20)
+			 .sort({'_id' : -1})
+			 .exec( function (err, narrations) {
+			 	if(err) {
+			 		res.send(err);
+			 	}
+for(var i = 0; i < narrations.length; i++) {
+console.log(narrations[i]._id);
+}
+			 	res.json(narrations);
+			 });
+
 });
 
 router.route('/new') 
