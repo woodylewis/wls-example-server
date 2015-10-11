@@ -57,7 +57,7 @@ router.route('/edit')
 			 		n.category = narrations[i].category;
 			 		n.body = narrations[i].body;
 			 		n.date = narrations[i].date;
-			 		n.url = narrations[i].url;
+			 		n.url = 'narration-' + i;
 			 		n.title = 'Title ' + i;
 			 		n.save(function(err) {
 			 			if(err)
@@ -96,6 +96,25 @@ router.route('/narration-page/:narration_id')
 			 		res.send(err);
 			 	}
 			 	res.json(narrations);
+			 });
+
+});
+
+router.route('/narration-url/:narration_url')
+.get(function(req, res, next) {
+	console.log('narration-url ', req.params.narration_url);
+	var query = {};
+	var field = 'url';
+	var operator = {};
+	operator['$eq'] = req.params.narration_url;
+	query[field] = operator;
+	Narration.find(query)
+			 .limit(1)
+			 .exec( function (err, narration) {
+			 	if(err) {
+			 		res.send(err);
+			 	}
+			 	res.json(narration);
 			 });
 
 });
