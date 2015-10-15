@@ -100,7 +100,7 @@ router.route('/narration-page/:narration_id')
 
 });
 
-router.route('/narration-url/:narration_url')
+router.route('/narration/:narration_url')
 .get(function(req, res, next) {
 	console.log('narration-url ', req.params.narration_url);
 	var query = {};
